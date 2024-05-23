@@ -124,7 +124,9 @@ export const sixthRQ = async (movie) => {
 export const seventhRQ = async (movie) => {
     container.innerHTML = ""
     let {description} = await getMovieFromPersonalId(movie)
-    description.forEach(val => {
+    for(let val of description) {
+        let extra = await getExtraInfoById(val["#IMDB_ID"])
+        let type = extra.short["@type"]
         let card = document.createElement("my-card")
         let title = val["#TITLE"]
         let url = val["#IMDB_URL"]
@@ -135,10 +137,10 @@ export const seventhRQ = async (movie) => {
         a.setAttribute("target", "_blank")
         a.textContent = `URL completa: ${url}`
         h1.textContent = `Titulo: ${title}`
-        p.textContent = "TIPO DE OBJETO: DVD"
+        p.textContent = `Tipo: ${type}`
         card.content.append(h1, a, p)
         container.appendChild(card)
-    })
+    }
 }
 export const eigthRQ = async (movie) => {
     container.innerHTML = ""
