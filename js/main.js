@@ -1,3 +1,5 @@
+import * as m from './module/paginador.js'
+
 // SIDEBAR DROPDOWN
 const allDropdown = document.querySelectorAll('#sidebar .side-dropdown');
 const sidebar = document.getElementById('sidebar');
@@ -122,4 +124,11 @@ window.addEventListener('click', function (e) {
 const allProgress = document.querySelectorAll('main .card .progress');
 allProgress.forEach(item=> {
 	item.style.setProperty('--value', item.dataset.value)
+})
+
+let requests = document.querySelectorAll(".principal li a")
+requests.forEach(val => {
+	val.addEventListener("click", (e) => {
+		m.viewChanger(e.target.textContent)
+	})
 })
