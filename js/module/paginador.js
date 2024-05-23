@@ -38,20 +38,61 @@ export const firstRQ = async (movie) => {
         let year = val[keyes[1]]
         let h1 = document.createElement("h2")
         let p = document.createElement("p")
-        p.textContent = year
-        h1.textContent = title
+        p.textContent = `Año de lanzamiento: ${year}`
+        h1.textContent = `Titulo: ${title}`
         card.content.append(h1, p)
         container.appendChild(card)
     })
 }
 export const secondRQ = async (movie) => {
-    
+    container.innerHTML = ""
+    let {description} = await getMovieFromPersonalId(movie)
+    description.forEach(val => {
+        let card = document.createElement("my-card")
+        let keyes = Object.keys(val)
+        let title = val[keyes[0]]
+        let actor = val[keyes[4]]
+        let h1 = document.createElement("h2")
+        let p = document.createElement("p")
+        p.textContent = `Actores: ${actor}`
+        h1.textContent = `Titulo: ${title}`
+        card.content.append(h1, p)
+        container.appendChild(card)
+    })
 }
 export const thirdRQ = async (movie) => {
-    
+    container.innerHTML = ""
+    let {description} = await getMovieFromPersonalId(movie)
+    description.forEach(val => {
+        let card = document.createElement("my-card")
+        let keyes = Object.keys(val)
+        let title = val[keyes[0]]
+        let imbd = val[keyes[3]]
+        let h1 = document.createElement("h2")
+        let p = document.createElement("p")
+        p.textContent = `Rango de IMDb: ${imbd}`
+        h1.textContent = `Titulo: ${title}`
+        card.content.append(h1, p)
+        container.appendChild(card)
+    })
 }
 export const fourthRQ = async (movie) => {
-    
+    container.innerHTML = ""
+    let {description} = await getMovieFromPersonalId(movie)
+    let dataUpdate = []
+    description.forEach(val => {
+        let keyes = Object.keys(val)
+        let title = val[keyes[0]]
+        dataUpdate.push(title)
+    })
+    let card = document.createElement("my-card")
+    dataUpdate.forEach(val => {
+        let h1 = document.createElement("h2")
+        h1.textContent = `Titulo: ${val}`
+        card.content.append(h1)
+
+    })
+    container.appendChild(card)
 }
 export const fifthRQ = async (movie) => {
     
