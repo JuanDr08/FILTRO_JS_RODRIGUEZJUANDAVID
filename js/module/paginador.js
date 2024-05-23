@@ -118,7 +118,23 @@ export const sixthRQ = async (movie) => {
     })
 }
 export const seventhRQ = async (movie) => {
-    
+    container.innerHTML = ""
+    let {description} = await getMovieFromPersonalId(movie)
+    description.forEach(val => {
+        let card = document.createElement("my-card")
+        let title = val["#TITLE"]
+        let url = val["#IMDB_URL"]
+        let h1 = document.createElement("h2")
+        let a = document.createElement("a")
+        let p = document.createElement("p")
+        a.setAttribute("href", url)
+        a.setAttribute("target", "_blank")
+        a.textContent = `URL completa: ${url}`
+        h1.textContent = `Titulo: ${title}`
+        p.textContent = "TIPO: PELICULA"
+        card.content.append(h1, a, p)
+        container.appendChild(card)
+    })
 }
 export const eigthRQ = async (movie) => {
     
