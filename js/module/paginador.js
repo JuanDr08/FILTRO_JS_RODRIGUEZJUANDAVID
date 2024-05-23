@@ -1,5 +1,5 @@
 import { simpleCard } from "../components/simpleCards.js"
-import { getMovieFromPersonalId } from "./apiRQ.js"
+import { getMovieFromPersonalId,getExtraInfoById } from "./apiRQ.js"
 let container = document.querySelector(".info-data")
 export const viewChanger = (texto) => {
     let movie = prompt("Que pelicula quisieras ver para filtrar?")
@@ -93,14 +93,18 @@ export const fourthRQ = async (movie) => {
 export const fifthRQ = async (movie) => {
     container.innerHTML = ""
     let {description} = await getMovieFromPersonalId(movie)
-    description.forEach(val => {
+    for(let val of description) {
         let card = document.createElement("my-card")
-        let title = val["#AKA"]
+        let extra = await getExtraInfoById(val["#IMDB_ID"])
+        let title = val["#TITLE"]
+        let date = extra.short["review"].dateCreated
         let h1 = document.createElement("h2")
+        let p = document.createElement("p")
+        p.textContent = `Fecha de creacion: ${date}`
         h1.textContent = `Titulo: ${title}`
-        card.content.append(h1)
+        card.content.append(h1, p)
         container.appendChild(card)
-    })
+    }
 }
 export const sixthRQ = async (movie) => {
     container.innerHTML = ""
@@ -131,13 +135,27 @@ export const seventhRQ = async (movie) => {
         a.setAttribute("target", "_blank")
         a.textContent = `URL completa: ${url}`
         h1.textContent = `Titulo: ${title}`
-        p.textContent = "TIPO: PELICULA"
+        p.textContent = "TIPO DE OBJETO: DVD"
         card.content.append(h1, a, p)
         container.appendChild(card)
     })
 }
 export const eigthRQ = async (movie) => {
-    
+    container.innerHTML = ""
+    let {description} = await getMovieFromPersonalId(movie)
+    description.forEach(val => {
+        let card = document.createElement("my-card")
+        let title = val["#TITLE"]
+        let year = val["#YEAR"]
+        let h1 = document.createElement("h2")
+        let p = document.createElement("p")
+        let p2 = document.createElement("p")
+        p.textContent = `Fecha de lanzamiento original: ${year}`
+        h1.textContent = `Titulo: ${title}`
+        p2.textContent = "TIPO DE OBJETO: DVD"
+        card.content.append(h1, p, p2)
+        container.appendChild(card)
+    })
 }
 
 customElements.define("my-card", simpleCard)

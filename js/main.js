@@ -120,8 +120,6 @@ window.addEventListener('click', function (e) {
 		}
 	})
 })
-
-
 let requests = document.querySelectorAll(".principal li a")
 requests.forEach(val => {
 	val.addEventListener("click", (e) => {
