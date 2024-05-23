@@ -33,9 +33,8 @@ export const firstRQ = async (movie) => {
     let {description} = await getMovieFromPersonalId(movie)
     description.forEach(val => {
         let card = document.createElement("my-card")
-        let keyes = Object.keys(val)
-        let title = val[keyes[0]]
-        let year = val[keyes[1]]
+        let title = val["#TITLE"]
+        let year = val["#YEAR"]
         let h1 = document.createElement("h2")
         let p = document.createElement("p")
         p.textContent = `Año de lanzamiento: ${year}`
@@ -49,9 +48,8 @@ export const secondRQ = async (movie) => {
     let {description} = await getMovieFromPersonalId(movie)
     description.forEach(val => {
         let card = document.createElement("my-card")
-        let keyes = Object.keys(val)
-        let title = val[keyes[0]]
-        let actor = val[keyes[4]]
+        let title = val["#TITLE"]
+        let actor = val["#ACTORS"]
         let h1 = document.createElement("h2")
         let p = document.createElement("p")
         p.textContent = `Actores: ${actor}`
@@ -65,9 +63,8 @@ export const thirdRQ = async (movie) => {
     let {description} = await getMovieFromPersonalId(movie)
     description.forEach(val => {
         let card = document.createElement("my-card")
-        let keyes = Object.keys(val)
-        let title = val[keyes[0]]
-        let imbd = val[keyes[3]]
+        let title = val["#TITLE"]
+        let imbd = val["#RANK"]
         let h1 = document.createElement("h2")
         let p = document.createElement("p")
         p.textContent = `Rango de IMDb: ${imbd}`
@@ -81,8 +78,7 @@ export const fourthRQ = async (movie) => {
     let {description} = await getMovieFromPersonalId(movie)
     let dataUpdate = []
     description.forEach(val => {
-        let keyes = Object.keys(val)
-        let title = val[keyes[0]]
+        let title = val["#TITLE"]
         dataUpdate.push(title)
     })
     let card = document.createElement("my-card")
@@ -95,7 +91,16 @@ export const fourthRQ = async (movie) => {
     container.appendChild(card)
 }
 export const fifthRQ = async (movie) => {
-    
+    container.innerHTML = ""
+    let {description} = await getMovieFromPersonalId(movie)
+    description.forEach(val => {
+        let card = document.createElement("my-card")
+        let title = val["#AKA"]
+        let h1 = document.createElement("h2")
+        h1.textContent = `Titulo: ${title}`
+        card.content.append(h1)
+        container.appendChild(card)
+    })
 }
 export const sixthRQ = async (movie) => {
     
