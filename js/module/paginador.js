@@ -145,19 +145,23 @@ export const seventhRQ = async (movie) => {
 export const eigthRQ = async (movie) => {
     container.innerHTML = ""
     let {description} = await getMovieFromPersonalId(movie)
-    description.forEach(val => {
+    for(let val of description) {
+        let extra = await getExtraInfoById(val["#IMDB_ID"])
+        let date =extra.short["review"].dateCreated
+        
+        let type = extra.short["@type"]
+        console.log(date)
         let card = document.createElement("my-card")
         let title = val["#TITLE"]
-        let year = val["#YEAR"]
         let h1 = document.createElement("h2")
         let p = document.createElement("p")
         let p2 = document.createElement("p")
-        p.textContent = `Fecha de lanzamiento original: ${year}`
+        p.textContent = `Fecha de lanzamiento original: ${date}`
         h1.textContent = `Titulo: ${title}`
-        p2.textContent = "TIPO DE OBJETO: DVD"
+        p2.textContent = `TIPO DE OBJETO: ${type}`
         card.content.append(h1, p, p2)
         container.appendChild(card)
-    })
+    }
 }
 
 customElements.define("my-card", simpleCard)
