@@ -1,5 +1,6 @@
-
-
+import { simpleCard } from "../components/simpleCards.js"
+import { getMovieFromPersonalId } from "./apiRQ.js"
+let container = document.querySelector(".info-data")
 export const viewChanger = (texto) => {
     let movie = prompt("Que pelicula quisieras ver para filtrar?")
     switch(texto) {
@@ -28,7 +29,20 @@ export const viewChanger = (texto) => {
     }
 }
 export const firstRQ = async (movie) => {
-    console.log("hola")
+    container.innerHTML = ""
+    let {description} = await getMovieFromPersonalId(movie)
+    description.forEach(val => {
+        let card = document.createElement("my-card")
+        let keyes = Object.keys(val)
+        let title = val[keyes[0]]
+        let year = val[keyes[1]]
+        let h1 = document.createElement("h2")
+        let p = document.createElement("p")
+        p.textContent = year
+        h1.textContent = title
+        card.content.append(h1, p)
+        container.appendChild(card)
+    })
 }
 export const secondRQ = async (movie) => {
     
@@ -51,3 +65,5 @@ export const seventhRQ = async (movie) => {
 export const eigthRQ = async (movie) => {
     
 }
+
+customElements.define("my-card", simpleCard)
